@@ -23,6 +23,7 @@ mv nssh-v0.0.1-linux-amd64 /usr/local/bin/nssh
 ```
 $ nssh --help
 Usage of nssh:
+-i=false: handle stdin
 -p=false: add hostname to line prefix
 -t=[]: target hostname
 -v=false: show version
@@ -34,4 +35,12 @@ Usage of nssh:
 $ nssh -t host-web-001 -t host-web-002 cat /var/log/nginx/access.log
 12.34.567.890 - - [06/Oct/2015:15:52:42 +0900] "-" 400 0 "-" "-"
 12.34.567.890 - - [06/Oct/2015:15:52:43 +0900] "GET / HTTP/1.1" 200 133 "-" "Mozilla/5.0 (Windows NT 5.1; rv:9.0.1) Gecko/20100101 Firefox/9.0.1"
+```
+
+Pass nssh's stdin to remote command. Use `-i` option.
+
+```
+$ echo foo | nssh -i -t host-web-001 -t host-web-002 cat
+foo
+foo
 ```
