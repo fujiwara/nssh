@@ -12,7 +12,7 @@ or
 
 ```
 ## at Linux
-curl -slO https://github.com/fujiwara/nssh/releases/download/v0.0.1/nssh-v0.0.1-linux-amd64.zip
+curl -sLO https://github.com/fujiwara/nssh/releases/download/v0.0.1/nssh-v0.0.1-linux-amd64.zip
 unzip nssh-v0.0.1-linux-amd64.zip
 mv nssh-v0.0.1-linux-amd64 /usr/local/bin/nssh
 ```
