@@ -30,8 +30,10 @@ func (s *strslice) Set(v string) error {
 
 func main() {
 	var targets strslice
+	var filenames strslice
 	var showVersion bool
 	flag.Var(&targets, "t", "target hostname")
+	flag.Var(&filenames, "f", "target hostname from file")
 	flag.BoolVar(&addPrefix, "p", false, "add hostname to line prefix")
 	flag.BoolVar(&showVersion, "v", false, "show version")
 	flag.BoolVar(&handleStdin, "i", false, "handle STDIN")
@@ -39,6 +41,9 @@ func main() {
 	if showVersion {
 		fmt.Println("version:", version)
 		return
+	}
+	if len(filenames) > 0 {
+		getHostFromFiles(&targets, &filenames)
 	}
 
 	command := flag.Args()
@@ -145,6 +150,24 @@ func writeInput(src chan []byte, dest io.WriteCloser, host string) {
 		} else {
 			dest.Close()
 			break
+		}
+	}
+}
+
+func getHostFromFiles(targets *strslice, filenames *strslice) {
+	for _, filename := range *filenames {
+		f, err := os.Open(filename)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "[error]", filename, err)
+			return
+		}
+		defer f.Close()
+		scanner := bufio.NewScanner(f)
+		for scanner.Scan() {
+			targets.Set(scanner.Text())
+		}
+		if err = scanner.Err(); err != nil {
+			fmt.Fprintln(os.Stderr, "[error]", err)
 		}
 	}
 }
