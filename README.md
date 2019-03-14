@@ -4,19 +4,15 @@ nssh is a tool to execute command in parallel on multiple hosts and returns the 
 
 ## Installation
 
-```
-go get github.com/fujiwara/nssh
+### Homebrew
+
+```console
+$ brew install fujiwara/tap/nssh
 ```
 
-or
+### Binary package
 
-```
-## at Linux
-curl -sLO https://github.com/fujiwara/nssh/releases/download/v0.0.1/nssh-v0.0.1-linux-amd64.zip
-unzip nssh-v0.0.1-linux-amd64.zip
-mv nssh-v0.0.1-linux-amd64 /usr/local/bin/nssh
-```
-
+[Releases](https://github.com/fujiwara/nssh/releases)
 
 ## Useage
 
